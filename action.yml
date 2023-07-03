@@ -9,20 +9,15 @@ inputs:
     required: true
   path:
     description: Path of JavaScript Sourcemaps files
-    default: ./dist/
     required: true
   service:
     description: Service Name
-    default: frontend
     required: true      
-  release-version:
-    description: Release Version (Usually Github Head Commit SHA)
-    default: ${{ github.sha }}
-    required: true
   minified-path-prefix:
     description: Minified Path Prefix
-    default: https://cdn.mycompany.com
     required: true    
+  release-version:
+    description: Release Version (Usually Github Head Commit SHA)
 runs:
   using: "composite"
   steps:
@@ -40,6 +35,6 @@ runs:
       run: |
         datadog-ci sourcemaps upload ${{ inputs.path }} \
         --service=${{ inputs.service }} \
-        --release-version=${{ inputs.release-version }} \
         --minified-path-prefix=${{ inputs.minified-path-prefix }}
+      # --release-version=${{ inputs.release-version }} \
         
